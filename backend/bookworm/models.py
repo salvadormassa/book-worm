@@ -3,7 +3,6 @@ from django.db import models
 
 class LowerCaseField(models.CharField):
     """ Set in place of CharField, converts to lowercase """
-
     def get_prep_value(self, value):
         return str(value).lower()
 
@@ -60,18 +59,17 @@ class Book(models.Model):
         (SOFT_COVER, 'Soft Cover'),
         (OTHER, 'Other'),
     ]
-    isbn = models.CharField(max_length=13, primary_key=True)  # Books < 2007 have 10 digit, <= 2007 have 13 digits
+    isbn = models.CharField(max_length=13, primary_key=True)  # Books < 2007 have 10 digit, >= 2007 have 13 digits
     title = TruncatingCharField(max_length=250)  # CharField max length is 255
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     description = models.TextField(null=True)
-    thumbnail = models.ImageField(upload_to='/thumbnails')
+    # thumbnail = models.ImageField(upload_to='/thumbnails')  # TODO
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     published_date = models.DateField()
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     page_count = models.PositiveIntegerField()
     format = models.ForeignKey(Format, on_delete=models.CASCADE)
-    dust_jacket = models.BooleanField()
     msrp = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, blank=True)
 
 class BookInstance(models.Model):
