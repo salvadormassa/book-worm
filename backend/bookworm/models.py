@@ -63,7 +63,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=13, primary_key=True)  # Books < 2007 have 10 digit, <= 2007 have 13 digits
     title = TruncatingCharField(max_length=250)  # CharField max length is 255
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    description = models.TextField()
+    description = models.TextField(null=True)
     thumbnail = models.ImageField(upload_to='/thumbnails')
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     published_date = models.DateField()
@@ -71,7 +71,11 @@ class Book(models.Model):
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     page_count = models.PositiveIntegerField()
     format = models.ForeignKey(Format, on_delete=models.CASCADE)
-    dust_jacket = models.CharField(max_length=2, choices=COVERS)
-    condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
-    price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, blank=True)
+    dust_jacket = models.BooleanField()
+    msrp = models.DecimalField(default=0.00, max_digits=8, decimal_places=2, blank=True)
 
+class BookInstance(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
+    dust_jacket = models.BooleanField()
+    base_price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2)
