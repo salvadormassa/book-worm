@@ -55,6 +55,9 @@ export default function ManualEntry() {
                 <label for="used-price">Our Price</label>
                 <input type="text" id="used-price" name="used-price" />
                 </div>
+                <div id="box-6">
+                    <button form="manual-entry-form" type="submit">ENTER</button>
+                </div>
             </form>
         </div>
     )
