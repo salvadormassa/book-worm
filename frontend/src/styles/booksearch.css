@@ -1,0 +1,12 @@
+#book-search-form>div{
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+  }
+  
+  
+  
+  #book-search-page>input{
+    border: 2px solid black;
+    display: flex;
+  }

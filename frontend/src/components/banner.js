@@ -1,4 +1,5 @@
 import React from "react";
+import  '../styles/banner.css';
 
 export default function Banner({ currentPage, handlePageChange }) {
     return (
@@ -11,7 +12,7 @@ export default function Banner({ currentPage, handlePageChange }) {
                 <a href="#Book-Search" onClick={() => handlePageChange('BookSearch')} >
                     Book Search
                 </a>
-                <a href='#Manual Entry' onClick={() => handlePageChange('Manualentry')} >
+                <a href='#Manual-Entry' onClick={() => handlePageChange('Manualentry')} >
                     Manual Entry
                 </a>
             </div>

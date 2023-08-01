@@ -1,0 +1,42 @@
+#login-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+    gap: 10px;
+    height: 70vh;
+    font-size: 2vw;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    /* background-color: aquamarine; */
+  }
+  
+  #login-form  input{
+    height: 4vh;
+    width: 15vw;
+    font-size: 3vh;
+    border-radius: 10px;
+    box-shadow: 5px 5px #2ca27f;
+  }
+  
+  #login-form button{
+    height: 4vh;
+    width: 15vw;
+    font-size: 3vh;
+    margin-top: .5%;
+    margin-left: 1%;
+    border: 2px solid black;
+    border-radius: 25px;
+    box-shadow: 2px 2px #2ca27f;
+    transition: 500ms;
+    background-color: #73d9a1;
+  }
+  
+  #login-form button:hover{
+    background-color:#36c9c1;
+  }
+  
+  #login-form button:active{
+    box-shadow: none;
+  }
+  

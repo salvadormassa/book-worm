@@ -8,7 +8,7 @@ import React, {useState} from 'react';
 
 function App() {
 
-  const [currentPage, setCurrentPage] = useState('Login');
+  const [currentPage, setCurrentPage] = useState('BookSearch');
 
   const renderPage = () => {
     if (currentPage === 'Login') {

@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/manualentry.css';
 
 export default function ManualEntry() {
     return (

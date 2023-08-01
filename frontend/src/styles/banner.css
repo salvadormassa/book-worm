@@ -1,0 +1,33 @@
+#banner {
+    background-color: #36c9c1;
+    height: 14vh;
+    margin: 1%;
+    border-radius: 50px;
+    border: 2px solid black;
+    box-shadow: 3px 3px green;
+  }
+  
+  #banner-content {
+    font-size: 6vh;
+    font-family: OldPrint;
+    
+  }
+  
+  #nav-bar {
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+    font-size: 3vh;
+    font-weight: bold;
+  }
+  
+  #nav-bar>a{
+    transition: 300ms;
+    text-decoration: none;
+    color: black;
+  }
+  
+  #nav-bar>a:hover{
+    font-size: 3.5vh;
+    text-decoration: underline;
+  }
