@@ -3,7 +3,7 @@ import json
 import loguru
 import requests
 
-from config import settings
+from .config import settings
 
 
 def parse_response(response: dict) -> list:
@@ -59,6 +59,7 @@ class GoogleBooksAPI:
             response = json.loads(response.content)  # convert to dict
             # return parse_response(response)
             return response
+
     def get_from_title(self, title: str) -> list or None:
         title = self.remove_spaces_from_title(title)
         url = self.compile_url('intitle:', title)
