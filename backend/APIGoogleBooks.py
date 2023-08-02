@@ -27,6 +27,7 @@ class GoogleBooksAPI:
             'pageCount',
             'categories',
             'imageLinks',
+            'language',
         ]
 
     def __str__(self):

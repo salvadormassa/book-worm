@@ -3,7 +3,16 @@ import json
 
 import loguru
 
-# from .models import Author, Publisher, Genre, Language, Format, Condition, Book, BookInstance
+# from .models import (
+#     Author,
+#     Publisher,
+#     Genre,
+#     Language,
+#     # Format,
+#     Condition,
+#     Book,
+#     BookInstance,
+# )
 from backend.APIGoogleBooks import GoogleBooksAPI
 
 
@@ -22,27 +31,6 @@ def add_isbn_prefix(isbn: str) -> str:
     return isbn
 
 
-# def compile_start_books():
-#     with open(START_FILES['title']) as csvfile:
-#         reader = csv.reader(csvfile)
-#         next(reader, None)
-#         for row in reader:
-#             try:
-#                 if '#' in row[0]:
-#                     continue
-#                 elif len(row) != 4:
-#                     loguru.logger.error(f'check ingredient on line {reader.line_num}, {row}')
-#                 else:
-#                     Ingredient.objects.get_or_create(
-#                         item_name=row[0],
-#                         on_hand=row[1],
-#                         unit_type=row[2],
-#                         unit_cost=row[3],
-#                     )
-#             except Exception as err:
-#                 loguru.logger.error(f"{err}, line {reader.line_num}")
-
-
 def get_isbns() -> list:
     with open(START_FILES['isbn']) as csvfile:
         reader = csv.reader(csvfile)
@@ -51,19 +39,43 @@ def get_isbns() -> list:
     return isbns
 
 
+# def insert_book_details(book_details: dict):
+#     for author in book_details['authors']:
+#         Author.objects.get_or_create(name=author.lower())
+#     for cat in book_details['categories']:
+#         Genre.objects.get_or_create(name=cat.lower())
+#
+#     Book.objects.get_or_create(
+#         isbn=book_details['isbn'],
+#         title=book_details['title'],
+#         author='',  # TODO one to many
+#         publisher=book_details['publisher'],
+#         published_date=book_details['publishedDate'],
+#         description=book_details['description'],
+#         page_count=book_details['pageCount'],
+#         genre='',  # TODO foreignkey
+#         thumbnail=book_details['imageLinks']['smallThumbnail'],
+#         language='',  # TODO
+#         msrp=10,
+#     )
+
+
 def compile_start_data():
     isbns = get_isbns()
     books_api = GoogleBooksAPI()
     for isbn in isbns:
-        # isbn = add_isbn_prefix(isbn)
         response = books_api.get_from_isbn(isbn)
-        # print(json.dumps(response, indent=4))
-        if response:
-            book_data = {key: val for key, val in response['items'][0]['volumeInfo'].items()}
-            print(book_data)
-            print(response['items'][0]['volumeInfo']['title'])
+        if not response:
+            loguru.logger.debug(f"no book data for isbn: {isbn}")
+        elif not all (books_api.FIELDS_TO_GET) in response['items'][0]['volumeInfo']:
+            loguru.logger.debug(f"fields missing for: {isbn}")
+            loguru.logger.debug(response['items'][0]['volumeInfo'])
         else:
-            loguru.logger.debug(f"no book for for isbn: {isbn}")
+            print(json.dumps(response['items'][0]['volumeInfo'], indent=4))
+            loguru.logger.info(f"adding {isbn} to db")
+            book_details = {key: val for key, val in response['items'][0]['volumeInfo'].items()}
+            book_details['isbn'] = isbn
+            # insert_book_details(book_details)
 
 
 if __name__ == '__main__':
